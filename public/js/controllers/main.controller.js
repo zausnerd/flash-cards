@@ -12,6 +12,8 @@ app.controller('MainController', function ($scope, FlashCardsFactory, ScoreFacto
     'reset'
 	];
 
+	$scope.flashCards = null;
+	$scope.loading = FlashCardsFactory.loading;
 	$scope.activeCategory = undefined;
 
 	$scope.answerQuestion = function (answer, flashCard) {
@@ -26,9 +28,11 @@ app.controller('MainController', function ($scope, FlashCardsFactory, ScoreFacto
 		}
 	}
 
+
 	$scope.getCategoryCards = function(category) {
 		$scope.activeCategory = category;
 		$scope.flashCards = FlashCardsFactory.getFlashCards(category).then(function(cards) {
+			$scope.loading = false;
 			$scope.flashCards = cards;
 		})
 	}
